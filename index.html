@@ -140,11 +140,61 @@
   .btn-secondary:hover{border-color:var(--ink);background:var(--panel);}
 
   .hero-visual{
-    width:220px;height:220px;
+    position:relative;
+    width:260px;height:260px;
+    display:flex;align-items:center;justify-content:center;
     opacity:0;animation:visualIn .8s ease forwards;animation-delay:.2s;
   }
-  @media (max-width:800px){.hero-visual{width:160px;height:160px;margin:0 auto;}}
+  @media (max-width:800px){.hero-visual{width:190px;height:190px;margin:0 auto;}}
   @keyframes visualIn{from{opacity:0;transform:scale(.9);}to{opacity:1;transform:scale(1);}}
+
+  .hero-blob{
+    position:absolute;
+    width:220px;height:220px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, var(--accent), var(--purple) 55%, transparent 75%);
+    filter:blur(26px);
+    opacity:0.4;
+    z-index:0;
+  }
+  @media (max-width:800px){.hero-blob{width:170px;height:170px;}}
+
+  .hero-photo-ring{
+    position:relative;
+    z-index:1;
+    width:230px;height:230px;
+    border-radius:50%;
+    padding:5px;
+    background:conic-gradient(from 180deg, var(--accent), var(--purple), var(--green), var(--amber), var(--accent));
+    box-shadow:0 24px 48px -20px rgba(20,22,48,0.35);
+    opacity:0;
+    animation:photoFadeIn 1s ease forwards;
+    animation-delay:.3s;
+  }
+  @media (max-width:800px){.hero-photo-ring{width:170px;height:170px;}}
+  @keyframes photoFadeIn{
+    from{opacity:0;transform:scale(.92);}
+    to{opacity:1;transform:scale(1);}
+  }
+
+  .hero-photo-ring-inner{
+    width:100%;height:100%;
+    border-radius:50%;
+    background:var(--paper);
+    padding:4px;
+    overflow:hidden;
+  }
+  .hero-photo-ring-inner img{
+    width:100%;height:100%;
+    border-radius:50%;
+    object-fit:cover;
+    object-position:top center;
+    display:block;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-photo-ring{opacity:1 !important;animation:none !important;}
+  }
 
   /* skills chips */
   .skills-strip{
@@ -432,7 +482,7 @@
             View live dashboard
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a class="btn-secondary" href="#" id="resumeLink">
+          <a class="btn-secondary" href="resume.pdf" target="_blank" rel="noopener" id="resumeLink">
             Download résumé
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
           </a>
@@ -445,17 +495,13 @@
           <span class="chip">Web scraping</span>
         </div>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <svg viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="10" width="200" height="200" rx="8" fill="#1B1B1F"/>
-          <rect x="34" y="140" width="20" height="46" rx="2" fill="#37373D"/>
-          <rect x="64" y="110" width="20" height="76" rx="2" fill="#FF5A1F"/>
-          <rect x="94" y="130" width="20" height="56" rx="2" fill="#37373D"/>
-          <rect x="124" y="90" width="20" height="96" rx="2" fill="#FF5A1F"/>
-          <rect x="154" y="120" width="20" height="66" rx="2" fill="#37373D"/>
-          <path d="M34 100 L64 78 L94 92 L124 52 L154 70" stroke="#8FBF8C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="124" cy="52" r="4" fill="#8FBF8C"/>
-        </svg>
+      <div class="hero-visual">
+        <div class="hero-blob" aria-hidden="true"></div>
+        <div class="hero-photo-ring">
+          <div class="hero-photo-ring-inner">
+            <img src="profile.png" alt="Donizetti da Silva">
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -569,7 +615,7 @@
               <span class="dashboard-frame-label"><span class="live-dot"></span>Live report</span>
             </div>
             <div class="dashboard-embed">
-              <iframe title="Sales Calendar Dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiZTRkMDJiMTYtNjBiMC00YzE5LWFmNGEtMTFkNWM0ZGE1MjZhIiwidCI6ImMzOTU4Yzg2LWM3MDQtNDVmMC1iN2RhLTI2NTE4MDM5NDIwNSJ9" allowfullscreen loading="lazy"></iframe>
+              <iframe title="Sales Calendar Dashboard" src="https://app.powerbi.com/view?r=eyJrIjoiMTRlZmJjMTgtN2Q5NS00NDAzLWFhM2UtNWZkNDZjMzYzZTI2IiwidCI6ImMzOTU4Yzg2LWM3MDQtNDVmMC1iN2RhLTI2NTE4MDM5NDIwNSJ9" allowfullscreen loading="lazy"></iframe>
             </div>
           </div>
           <ul class="project-findings">
@@ -735,7 +781,7 @@ remaining_days = (df[<span class="str">"FIM"</span>].min() - datetime.today()).d
         <div class="contact-links">
           <div class="contact-link-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M22 6l-10 7L2 6"/></svg>
-            <a href="mailto:your-email@example.com">your-email@example.com</a>
+            <a href="mailto:Donizettirs@xsf2c.onmicrosoft.com">Donizettirs@xsf2c.onmicrosoft.com</a>
           </div>
           <div class="contact-link-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13a4 4 0 0 1 8 0v8"/></svg>
@@ -743,7 +789,7 @@ remaining_days = (df[<span class="str">"FIM"</span>].min() - datetime.today()).d
           </div>
           <div class="contact-link-row">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77 5.44 5.44 0 0 0 3.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            <a href="#">github.com/your-username</a>
+            <a href="https://github.com/donizettirs" target="_blank" rel="noopener">github.com/donizettirs</a>
           </div>
         </div>
       </div>
